@@ -12,8 +12,8 @@ const Chat = () => {
     };
 
     return (
-        <div className="container mt-5 overflow-hidden rounded shadow" style={{height:'80%'}}>
-            <div className="row h-100">
+        <div className="container mt-5 rounded shadow" style={{height:'80%'}}>
+            <div className="row h-100 d-flex">
                 <ChanelBox
                     handleModal={handleModal}/>
                 <Modals

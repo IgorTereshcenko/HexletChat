@@ -5,16 +5,17 @@ const initialState = {
     channels: [],
     isLoading: false,
     error: '',
-    currentChannelId: 1
+    currentChannelId: 1,
+    currentChannel:{}
 }
 
 const dataSlice = createSlice({
     name: 'channels',
     initialState,
     reducers:{
-        /* getCurrentChannel(state) {
-            state.channels.find(channel => channel.id === state.currentChannelId);
-        }, */
+        getCurrentChannel(state) {
+            state.currentChannel = state.channels.find(channel => channel.id === state.currentChannelId);
+        },
         setCurrentChannel(state,action) {
             state.currentChannelId = action.payload;
         },
@@ -48,4 +49,4 @@ const dataSlice = createSlice({
 
 const {actions, reducer} = dataSlice;
 export default reducer;
-export const {setCurrentChannel,addChannel,deleteChannel,renameChannel} = actions;
+export const {setCurrentChannel,addChannel,deleteChannel,renameChannel,getCurrentChannel} = actions;
