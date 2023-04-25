@@ -6,7 +6,8 @@ const initialState = {
     isLoading: false,
     error: '',
     currentChannelId: 1,
-    currentChannel:{}
+    currentChannel:{},
+    unique:false
 }
 
 const dataSlice = createSlice({
@@ -29,6 +30,10 @@ const dataSlice = createSlice({
             const { channelId, channelName } = payload;
             const channel = state.channels.find(channel => channel.id === channelId)
             channel.name = channelName;
+        },
+        isUniqueChannelName(state,action) {
+            const existingChannel = state.channels.find(channel => channel.name === action.payload);
+            state.unique = !existingChannel;   
         }
     },
     extraReducers:(builder) => {
@@ -49,4 +54,10 @@ const dataSlice = createSlice({
 
 const {actions, reducer} = dataSlice;
 export default reducer;
-export const {setCurrentChannel,addChannel,deleteChannel,renameChannel,getCurrentChannel} = actions;
+export const {
+    setCurrentChannel,
+    addChannel,
+    deleteChannel,
+    renameChannel,
+    getCurrentChannel,
+    isUniqueChannelName} = actions;

@@ -63,7 +63,11 @@ export const webSocket = () => {
             if (err) {
                 console.log(err);
             }
-            console.log(response.status);
+            if (response) {
+                console.log(response.status);
+            } else {
+                console.log("Response object is undefined");
+            }
         })
     }
 

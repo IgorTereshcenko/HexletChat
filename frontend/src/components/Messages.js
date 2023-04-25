@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux'
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -14,7 +14,10 @@ const Messages = () => {
     
     const {currentChannelMessages,messages} = useSelector(state => state.messagesReducer);
     const {currentChannelId,currentChannel,channels} = useSelector(state => state.channelsReducer);
+
     const { user: { username } } = useAuth();
+
+    const inputRef = useRef(null);
 
     const dispath = useDispatch();
 
@@ -26,6 +29,7 @@ const Messages = () => {
 
     useEffect(() => {
         dispath(getCurrentChannel());
+        inputRef.current.focus();
     },[currentChannelId,channels])
 
     useEffect(() => {
@@ -87,7 +91,8 @@ const Messages = () => {
                             value={formik.values.body}
                             onChange={formik.handleChange}
                             required 
-                            type="text" 
+                            type="text"
+                            ref={inputRef} 
                             placeholder="Enter message"/>
                         <Button disabled={!formik.values.body} variant="dark" type="submit">отправить</Button>
                     </InputGroup>          

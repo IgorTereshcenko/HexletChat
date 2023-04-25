@@ -5,11 +5,12 @@ import useAuth from "../context/Auth";
 import {setCurrentChannel} from '../store/slice/channelsSlice';
 import { addCurrentChannelMessages } from "../store/slice/messagesSlice";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { animateScroll } from 'react-scroll';
 
 const ChanelBox = ({handleModal}) => {
 
     const {channels,isLoading,error,currentChannelId} = useSelector(state => state.channelsReducer);
-   
+
     const dispath = useDispatch();
   
     const auth = useAuth();
@@ -17,6 +18,10 @@ const ChanelBox = ({handleModal}) => {
     useEffect(() => {
         dispath(fetchChannels(auth.getAuthHeader()));
     },[auth,dispath])
+
+    useEffect(() => {
+        animateScroll.scrollToBottom({containerId: 'channel-box', delay: 0, duration: 0});
+    },[channels.length])
 
     const handleChooseChannel = (channelId) => {
         dispath(setCurrentChannel(channelId));
@@ -30,7 +35,10 @@ const ChanelBox = ({handleModal}) => {
     }
 
     return (
-        <div className="col-2 border-end bg-light flex-column pt-3 d-flex align-items-center">
+        <div 
+            className="col-2 border-end bg-light flex-column pt-3 d-flex align-items-center"
+            style={{ overflowY: 'auto', maxHeight: '650px' }}
+            id="channel-box">
             <div className="d-flex mb-3 w-100 justify-content-between">
                 Каналы
                 <button 
@@ -44,7 +52,7 @@ const ChanelBox = ({handleModal}) => {
                     <button 
                         className={currentChannelId === channel.id ? "w-100 rounded-0 text-center btn btn-secondary" : "w-100 rounded-0 text-center btn btn-light"} 
                         onClick={() => handleChooseChannel(channel.id)}>
-                            {channel.name}
+                            <span className="text-break">{channel.name}</span>
                     </button>
                     {channel.removable && currentChannelId === channel.id ? 
                          <Dropdown>
