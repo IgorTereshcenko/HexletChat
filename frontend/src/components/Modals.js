@@ -51,7 +51,6 @@ const Modals = ({modalState,handleModal}) => {
                 createNewChannelForm.resetForm();
             } catch(e) {
                 console.log(e);
-                log('channel.create.error', e);
             }
         }
     })

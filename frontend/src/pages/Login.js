@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useRef, useState} from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import useAuth from '../context/Auth';
 
 const login = () => {
@@ -13,6 +13,12 @@ const login = () => {
     const auth = useAuth();
 
     const [error, setError] = useState(false);
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    },[])
 
     const formik = useFormik({
         initialValues: {
@@ -51,7 +57,8 @@ const login = () => {
                                 <Form.Control
                                     className="form-control"
                                     required 
-                                    type="text" 
+                                    type="text"
+                                    ref={inputRef} 
                                     placeholder="Введите имя пользователя"/>
                         </Form.Group>
                     </div>
@@ -77,7 +84,7 @@ const login = () => {
                     </div>
                     {error ? <div className='text-bg-danger p-3 text-center'>Имя пользователя или пароль введены неверно</div> : null}   
                 </Form>
-                <div class="text-bg-secondary  p-3 text-center">Не зарегистрированы? Регистрация</div>
+                <div class="text-bg-secondary  p-3 text-center">Не зарегистрированы? <Link to='/registration'>Регистрация</Link></div>
                 </div>    
             </div> 
         </div>

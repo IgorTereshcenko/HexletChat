@@ -5,6 +5,7 @@ import Chat from './pages/Chat';
 import Login from './pages/Login';
 import useAuth from './context/Auth';
 import MyNavbar from './components/MyNavbar';
+import Registration from './pages/Registration';
 
 const AuthProvider = ({ children }) => {
 
@@ -50,8 +51,8 @@ const App = () => {
             <MyNavbar/>
             <Router>
                 <Routes>
-                    
                     <Route path="/login" element={<Login/>}/>
+                    <Route path='/registration' element={<Registration/>}/>
                     <Route
                         path="/"
                         element={(
