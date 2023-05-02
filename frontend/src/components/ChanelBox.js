@@ -10,7 +10,7 @@ import { animateScroll } from 'react-scroll';
 const ChanelBox = ({handleModal}) => {
 
     const {channels,isLoading,error,currentChannelId} = useSelector(state => state.channelsReducer);
-
+  
     const dispath = useDispatch();
   
     const auth = useAuth();

@@ -15,15 +15,15 @@ socket.on('newChannel', (payload) => {
     store.dispatch(addChannel(payload))
 });
 
-socket.on('removeChannel', (payload) => {
-    store.dispatch(deleteChannel(payload))
-});
-
 socket.on('renameChannel', (payload) => {
     store.dispatch(renameChannel({
         channelId: payload.id,
         channelName: payload.name
     }))
+});
+
+socket.on('removeChannel', (payload) => {
+    store.dispatch(deleteChannel(payload))
 });
 
 export const webSocket = () => {
@@ -48,13 +48,14 @@ export const webSocket = () => {
         })
     }
 
-    const removeChannel = (channel) => {
-        socket.timeout(3000).emit('removeChannel', channel, (err,response) => {
+    const removeChannel = (id) => {
+        socket.timeout(3000).emit('removeChannel', id, (err,response) => {
             if (err) {
                 console.log(err);
+            } else {
+                store.dispatch(setCurrentChannel(1));
+                console.log(response.status);
             }
-            store.dispatch(setCurrentChannel(1));
-            console.log(response.status);
         })
     }
 
@@ -71,7 +72,9 @@ export const webSocket = () => {
         })
     }
 
+
     return {sendMessage,createChannel,removeChannel,renameChannel};
 };
+
 
 

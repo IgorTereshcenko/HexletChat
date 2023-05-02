@@ -18,6 +18,9 @@ const messagesSlice = createSlice({
         addCurrentChannelMessages(state,action) {
             state.currentChannelMessages = [...state.messages];
             state.currentChannelMessages = state.currentChannelMessages.filter(message => message.chanellId === action.payload)
+        },
+        cleaningCurrentChannelMessages(state,action) {
+            state.messages = state.messages.filter(message => message.chanellId !== action.payload);
         }
     },
     extraReducers:(builder) => {
@@ -37,4 +40,4 @@ const messagesSlice = createSlice({
 
 const {actions, reducer} = messagesSlice;
 export default reducer;
-export const {addMessage,addCurrentChannelMessages} = actions;
+export const {addMessage,addCurrentChannelMessages,cleaningCurrentChannelMessages} = actions;

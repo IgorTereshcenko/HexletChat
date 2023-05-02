@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -8,12 +8,14 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { isUniqueChannelName } from '../store/slice/channelsSlice';
+import { deleteChannel } from '../store/slice/channelsSlice';
+import { cleaningCurrentChannelMessages } from '../store/slice/messagesSlice';
 
 const Modals = ({modalState,handleModal}) => {
 
     const {currentChannelId,unique} = useSelector(state => state.channelsReducer);
     const dispatch = useDispatch();
-
+ 
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -73,9 +75,11 @@ const Modals = ({modalState,handleModal}) => {
     const handleRemoveChannel = async (id) => {
         try {
             await removeChannel({id});
+            dispatch(deleteChannel(id));
+            dispatch(cleaningCurrentChannelMessages(currentChannelId));
             handleModal('remove');
         } catch(e) {
-            console.log(e)
+            console.log(e);
         }
     }
 

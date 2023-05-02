@@ -13,6 +13,7 @@ import { animateScroll } from 'react-scroll';
 const Messages = () => {
     
     const {currentChannelMessages,messages} = useSelector(state => state.messagesReducer);
+    console.log(currentChannelMessages);
     const {currentChannelId,currentChannel,channels} = useSelector(state => state.channelsReducer);
 
     const { user: { username } } = useAuth();
@@ -67,13 +68,13 @@ const Messages = () => {
         }
     }
 
-    const ending = getMessageEnding(messages.length);
+    const ending = getMessageEnding(currentChannelMessages.length);
 
     return (
         <div className='card col-10 d-flex flex-column px-0'>
             <div className="card-header text-left d-flex flex-column">
                     <strong>{currentChannel?.name}</strong>
-                    <span className='text-muted'>{messages.length + " " + ending}</span>
+                    <span className='text-muted'>{currentChannelMessages.length + " " + ending}</span>
             </div>
             <div id="messages-box" className="row mx-4 mt-3 chat-messages" style={{ overflowY: 'auto', maxHeight: '550px' }}>
                 {currentChannelMessages.map(message =>
