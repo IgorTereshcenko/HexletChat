@@ -13,7 +13,6 @@ import { animateScroll } from 'react-scroll';
 const Messages = () => {
     
     const {currentChannelMessages,messages} = useSelector(state => state.messagesReducer);
-    console.log(currentChannelMessages);
     const {currentChannelId,currentChannel,channels} = useSelector(state => state.channelsReducer);
 
     const { user: { username } } = useAuth();
@@ -79,7 +78,7 @@ const Messages = () => {
             <div id="messages-box" className="row mx-4 mt-3 chat-messages" style={{ overflowY: 'auto', maxHeight: '550px' }}>
                 {currentChannelMessages.map(message =>
                     <div className='text-break' key={message.id}>
-                        <span>{`${message.username}: ${message.body}`}</span>
+                        <strong>{`${message.username}:`}</strong> <span>{message.body}</span>
                     </div>  
                 )}
             </div>
@@ -94,7 +93,7 @@ const Messages = () => {
                             required 
                             type="text"
                             ref={inputRef} 
-                            placeholder="Enter message"/>
+                            placeholder="Введите сообщение"/>
                         <Button disabled={!formik.values.body} variant="dark" type="submit">отправить</Button>
                     </InputGroup>          
                 </Form>

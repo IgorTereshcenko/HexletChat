@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import useAuth from './context/Auth';
 import MyNavbar from './components/MyNavbar';
 import Registration from './pages/Registration';
+import ErrorPage from './pages/ErrorPage';
 
 const AuthProvider = ({ children }) => {
 
@@ -53,6 +54,7 @@ const App = () => {
                 <Routes>
                     <Route path="/login" element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
+                    <Route path='*' element={<ErrorPage/>}/>
                     <Route
                         path="/"
                         element={(
